@@ -1,8 +1,11 @@
-package app;
+package app.domain;
 
 import java.math.BigDecimal;
 
 public class Price {
+
+    private static long counter;
+    private Long id;
 
     private BigDecimal price;
 
@@ -10,7 +13,17 @@ public class Price {
     private Product product;
 
     public Price(BigDecimal price) {
+
+        this.id = ++counter;
         this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BigDecimal getPrice() {

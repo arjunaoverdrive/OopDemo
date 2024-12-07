@@ -1,47 +1,35 @@
-import app.Price;
-import app.Producer;
-import app.Product;
-import app.Shop;
+import app.ShopsManagement;
+import app.domain.Price;
+import app.domain.Producer;
+import app.domain.Product;
+import app.domain.Shop;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
+
+    private static final ShopsManagement shopsManagement = ShopsManagement.getInstance();
     public static void main(String[] args) {
 
-        Shop shop = new Shop("Spar", "Tula, Lenina ave, 27");
+        Long shopId = shopsManagement.createShop("Spar", "Tula, Lenina ave, 27");
+        Shop shop = shopsManagement.findShopById(shopId);
         System.out.println(shop);
 
-        Product chocolate = new Product();
-        chocolate.setName("Milka" );
-        chocolate.setWeight(300);
-//        System.out.println(chocolate);
+        Producer kraft = shopsManagement.createProducer("Kraft");
 
+        Product chocolate = shopsManagement.createProduct("Milka", 280., kraft.getId() );
+        System.out.println(chocolate);
 
-        Producer kraft = new Producer("Kraft");
+        Product coffee = shopsManagement.createProduct("Jackobs", 180., kraft.getId());
 
-        Product coffee = new Product("Jakobs", 180);
-
-        coffee.setProducer(kraft);
-        List<Product> products = new ArrayList<>(List.of(coffee, chocolate));
-        for(Product p: products){
-            System.out.println(p);
-        }
-
-        Product coffee1 = new Product("Jackobs", 180);
+        Product coffee1 = shopsManagement.createProduct("Jackobs", 180., kraft.getId());
         System.out.println(coffee.equals(coffee1));
+        shopsManagement.printAllProducts();
 
-        Price coffeePrice = new Price(BigDecimal.valueOf(300.));
-        coffee.addPrice(coffeePrice);
-        shop.addPrice(coffeePrice);
-
+        Price coffeePrice = shopsManagement.createPrice(BigDecimal.valueOf(300.), coffee.getId(), shopId);
 
         System.out.println(coffeePrice);
-//        Collections.sort(products);
 
-        for(Product p: products){
-            System.out.println(p);
-        }
+        shopsManagement.printAllPrices();
     }
 }

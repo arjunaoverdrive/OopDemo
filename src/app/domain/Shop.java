@@ -1,16 +1,29 @@
-package app;
+package app.domain;
+
+import app.domain.Price;
 
 import java.util.*;
 
 public class Shop {
 
+    private static long counter;
+    private Long id;
     private String name;
     private String address;
     private Set<Price> prices = new HashSet<>();
 
     public Shop(String name, String address) {
+        this.id = ++counter;
         this.name = name;
         this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

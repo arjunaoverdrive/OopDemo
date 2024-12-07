@@ -1,9 +1,11 @@
-package app;
+package app.domain;
 
 import java.util.*;
 
 public class Product{
 
+    private static long counter;
+    private Long id;
     private String name;
     private Double weight;
 
@@ -11,15 +13,21 @@ public class Product{
 
     private Set<Price> prices = new HashSet<>();
 
-    public Product() {
-    }
-
-    public Product(double weight) {
+    public Product(String name, double weight) {
+        this.id = ++counter;
+        this.name = name;
         this.weight = weight;
     }
 
-    public Product(String name, double weight) {
-        this.name = name;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
