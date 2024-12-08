@@ -4,7 +4,7 @@ import app.service.Type;
 import app.ui.Menu;
 import app.ui.MenuItem;
 import app.ui.actions.GetByIdAction;
-import app.ui.actions.ItemName;
+import app.ui.ItemName;
 import app.ui.actions.PrintAllAction;
 import app.ui.actions.ReturnAction;
 import app.ui.actions.create.CreateShopAction;

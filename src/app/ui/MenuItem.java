@@ -1,7 +1,5 @@
 package app.ui;
 
-import app.ui.actions.ItemName;
-
 public class MenuItem {
 
     private final ItemName title;
@@ -32,6 +30,6 @@ public class MenuItem {
 
     @Override
     public String toString() {
-        return "\t"  + title.getName();
+        return "\t" + title.getName();
     }
 }

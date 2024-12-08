@@ -4,7 +4,7 @@ import app.ui.Action;
 import app.ui.Builder;
 import app.ui.Menu;
 import app.ui.MenuItem;
-import app.ui.actions.ItemName;
+import app.ui.ItemName;
 
 public abstract class SubMenuBuilder extends Builder {
 

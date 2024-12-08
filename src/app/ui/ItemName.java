@@ -1,14 +1,14 @@
-package app.ui.actions;
+package app.ui;
 
 public enum ItemName {
 
-    PRODUCER( "Producer"),
-    PRODUCT( "Product"),
+    PRODUCER("Producer"),
+    PRODUCT("Product"),
     SHOP("Shop"),
     PRICE("Price"),
     RETURN("Return"),
-    GET_BY_ID( "Get by id"),
-    CREATE( "Create"),
+    GET_BY_ID("Get by id"),
+    CREATE("Create"),
     PRINT_ALL("Print all");
 
     private final String name;
@@ -19,7 +19,6 @@ public enum ItemName {
     }
 
     ItemName(String name) {
-
         this.name = name;
     }
 }

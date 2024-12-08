@@ -14,11 +14,12 @@ import java.util.Scanner;
 public class GetByIdAction implements Action {
 
     private final Type type;
-    private final Map<Type, EntityService> services = Map.of(
+    private static final Map<Type, EntityService> SERVICES = Map.of(
             Type.PRODUCER, ProducerServiceImpl.getInstance(),
             Type.PRODUCT, ProductServiceImpl.getInstance(),
             Type.SHOP, ShopServiceImpl.getInstance(),
-            Type.PRICE, PriceServiceImpl.getInstance());
+            Type.PRICE, PriceServiceImpl.getInstance()
+    );
 
     public GetByIdAction(Type type) {
         this.type = type;
@@ -26,12 +27,12 @@ public class GetByIdAction implements Action {
 
     @Override
     public void execute() {
-        EntityService entityService = services.get(type);
+        EntityService entityService = SERVICES.get(type);
 
         Scanner scanner = new Scanner(System.in);
         Long id = null;
         while (id == null) {
-            System.out.println("Input entity id");
+            System.out.println("Input entity id: ");
             id = Long.parseLong(scanner.nextLine());
         }
         try {

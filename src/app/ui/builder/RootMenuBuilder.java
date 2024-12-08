@@ -4,7 +4,7 @@ import app.ui.Action;
 import app.ui.Builder;
 import app.ui.Menu;
 import app.ui.MenuItem;
-import app.ui.actions.ItemName;
+import app.ui.ItemName;
 import app.ui.actions.entity.PriceAction;
 import app.ui.actions.entity.ProducerAction;
 import app.ui.actions.entity.ProductAction;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class RootMenuBuilder extends Builder {
 
-
+    private static final Map<ItemName, Builder> BUILDERS = initBuilders();
     private static RootMenuBuilder instance;
     private static final Menu MENU = new Menu("Root menu:");
 
@@ -44,16 +44,15 @@ public class RootMenuBuilder extends Builder {
         Map<ItemName, Builder> builders = initBuilders();
         builders.values().forEach(Builder::buildMenu);
 
-        MenuItem product = createMenuItem(ItemName.PRODUCT, new ProductAction(), builders);
-        MenuItem producer = createMenuItem(ItemName.PRODUCER, new ProducerAction(), builders);
-        MenuItem shop = createMenuItem(ItemName.SHOP, new ShopAction(), builders);
-        MenuItem price = createMenuItem(ItemName.PRICE, new PriceAction(), builders);
-
+        MenuItem product = createMenuItem(ItemName.PRODUCT, new ProductAction());
+        MenuItem producer = createMenuItem(ItemName.PRODUCER, new ProducerAction());
+        MenuItem shop = createMenuItem(ItemName.SHOP, new ShopAction());
+        MenuItem price = createMenuItem(ItemName.PRICE, new PriceAction());
 
         return List.of(producer, product, shop, price);
     }
 
-    private Map<ItemName, Builder> initBuilders() {
+    private static Map<ItemName, Builder> initBuilders() {
         Map<ItemName, Builder> builders = new HashMap<>();
 
         ProducerMenuBuilder producerMenuBuilder = ProducerMenuBuilder.getInstance();
@@ -69,11 +68,11 @@ public class RootMenuBuilder extends Builder {
         return builders;
     }
 
-    private MenuItem createMenuItem(ItemName name, Action action, Map<ItemName, Builder> builders) {
+    private MenuItem createMenuItem(ItemName name, Action action) {
         return new MenuItem(
                 name,
                 action,
-                builders.get(name).getRootMenu()
+                BUILDERS.get(name).getRootMenu()
         );
     }
 }

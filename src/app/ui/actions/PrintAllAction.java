@@ -13,11 +13,12 @@ import java.util.Map;
 public class PrintAllAction implements Action {
 
     private final Type type;
-    private final Map<Type, EntityService> services = Map.of(
+    private static final Map<Type, EntityService> SERVICES = Map.of(
             Type.PRODUCER, ProducerServiceImpl.getInstance(),
             Type.PRODUCT, ProductServiceImpl.getInstance(),
             Type.SHOP, ShopServiceImpl.getInstance(),
-            Type.PRICE, PriceServiceImpl.getInstance());
+            Type.PRICE, PriceServiceImpl.getInstance()
+    );
 
     public PrintAllAction(Type type) {
         this.type = type;
@@ -26,7 +27,8 @@ public class PrintAllAction implements Action {
     @Override
     public void execute() {
         System.out.println("Printing...");
-        EntityService service = services.get(type);
+        System.out.println("=".repeat(25));
+        EntityService service = SERVICES.get(type);
         service.printAll();
         System.out.println("=".repeat(25));
     }
