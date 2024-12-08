@@ -9,13 +9,12 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PriceServiceImpl {
+public class PriceServiceImpl implements EntityService{
 
     private final ShopServiceImpl shopService = ShopServiceImpl.getInstance();
     private final ProductServiceImpl productService = ProductServiceImpl.getInstance();
 
     private static final Map<Long, Price> PRICES = new HashMap<>();
-
 
     private static PriceServiceImpl instance;
 
@@ -32,10 +31,10 @@ public class PriceServiceImpl {
     public Price createPrice(BigDecimal price, Long productId, Long shopId) {
         Price priceEntity = new Price(price);
 
-        Product product = productService.getProductById(productId);
+        Product product = productService.getById(productId);
         product.addPrice(priceEntity);
 
-        Shop shop = shopService.findShopById(shopId);
+        Shop shop = shopService.getById(shopId);
         shop.addPrice(priceEntity);
 
         PRICES.put(priceEntity.getId(), priceEntity);
@@ -43,7 +42,7 @@ public class PriceServiceImpl {
         return priceEntity;
     }
 
-    public Price getPriceById(Long priceId) {
+    public Price getById(Long priceId) {
         Price price = PRICES.get(priceId);
         if (price == null) {
             throw new RuntimeException(
@@ -53,7 +52,12 @@ public class PriceServiceImpl {
         return price;
     }
 
-    public void printAllPrices() {
+    @Override
+    public Type getType() {
+        return Type.PRICE;
+    }
+
+    public void printAll() {
         PRICES.forEach((key, value) -> System.out.println(value));
     }
 }

@@ -6,7 +6,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProducerServiceImpl {
+public class ProducerServiceImpl implements EntityService{
 
     private static final Map<Long, Producer> PRODUCERS = new HashMap<>();
 
@@ -21,13 +21,13 @@ public class ProducerServiceImpl {
         return instance;
     }
 
-    public Producer createProducer(String name) {
+    public Producer create(String name) {
         Producer producer = new Producer(name);
         PRODUCERS.put(producer.getId(), producer);
         return producer;
     }
 
-    public Producer getProducerById(Long producerId) {
+    public Producer getById(Long producerId) {
         Producer producer = PRODUCERS.get(producerId);
         if (producer == null) {
             throw new RuntimeException(
@@ -37,7 +37,12 @@ public class ProducerServiceImpl {
         return producer;
     }
 
-    public void printAllProducers() {
+    @Override
+    public Type getType() {
+        return Type.PRODUCT;
+    }
+
+    public void printAll() {
         PRODUCERS.forEach((key, value) -> System.out.println(value));
     }
 }

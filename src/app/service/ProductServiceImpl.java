@@ -7,7 +7,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProductServiceImpl {
+public class ProductServiceImpl implements EntityService{
 
     private static final Map<Long, Product> PRODUCTS = new HashMap<>();
 
@@ -24,7 +24,7 @@ public class ProductServiceImpl {
         return instance;
     }
 
-    public Product getProductById(Long id) {
+    public Product getById(Long id) {
         Product product = PRODUCTS.get(id);
         if (product == null) {
             throw new RuntimeException(
@@ -34,16 +34,20 @@ public class ProductServiceImpl {
         return product;
     }
 
-    public Product createProduct(String name, Double weight, Long producerId) {
+    public Product create(String name, Double weight, Long producerId) {
         Product product = new Product(name, weight);
         PRODUCTS.put(product.getId(), product);
-        Producer producer = producerService.getProducerById(producerId);
+        Producer producer = producerService.getById(producerId);
         producer.addProduct(product);
         return product;
     }
 
-    public void printAllProducts() {
+    public void printAll() {
         PRODUCTS.forEach((key, value) -> System.out.println(value));
     }
 
+    @Override
+    public Type getType() {
+        return Type.PRODUCT;
+    }
 }

@@ -6,7 +6,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShopServiceImpl {
+public class ShopServiceImpl implements EntityService{
 
     private static final Map<Long, Shop> SHOPS = new HashMap<>();
 
@@ -27,7 +27,7 @@ public class ShopServiceImpl {
         return shop;
     }
 
-    public Shop findShopById(Long id) {
+    public Shop getById(Long id) {
         Shop shop = SHOPS.get(id);
         if (shop == null) {
             throw new RuntimeException(
@@ -37,7 +37,12 @@ public class ShopServiceImpl {
         return shop;
     }
 
-    public void printAllShops() {
+    @Override
+    public Type getType() {
+        return Type.SHOP;
+    }
+
+    public void printAll() {
         SHOPS.forEach((key, value) -> System.out.println(value));
     }
 }
