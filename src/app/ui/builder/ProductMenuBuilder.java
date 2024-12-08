@@ -42,8 +42,7 @@ public class ProductMenuBuilder extends SubMenuBuilder {
         MenuItem print = createMenuItem(ItemName.PRINT_ALL, new PrintAllAction(TYPE), nextMenu);
         items.add(print);
 
-        MenuItem create = createMenuItem(ItemName.CREATE, new CreateProductAction() {
-        }, nextMenu);
+        MenuItem create = createMenuItem(ItemName.CREATE, new CreateProductAction(), nextMenu);
         items.add(create);
 
         MenuItem returnItem = createMenuItem(ItemName.RETURN, new ReturnAction(), nextMenu);
