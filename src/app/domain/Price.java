@@ -1,20 +1,28 @@
 package app.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 
 public class Price {
 
-    private static long counter;
     private Long id;
 
     private BigDecimal price;
 
     private Shop shop;
+
+//    @JsonBackReference(value = "product_prices")
+
+    @JsonIgnore
     private Product product;
 
-    public Price(BigDecimal price) {
+    public Price() {}
 
-        this.id = ++counter;
+    public Price(Long id, BigDecimal price) {
+
+        this.id = id;
         this.price = price;
     }
 

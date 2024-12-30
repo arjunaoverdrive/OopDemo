@@ -1,20 +1,28 @@
 package app.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.*;
 
 public class Product{
 
-    private static long counter;
     private Long id;
     private String name;
     private Double weight;
 
+//    @JsonBackReference(value = "producer")
+    @JsonIgnore
     private Producer producer;
 
+//    @JsonManagedReference(value = "product_prices")
     private Set<Price> prices = new HashSet<>();
 
-    public Product(String name, double weight) {
-        this.id = ++counter;
+    public Product() {}
+
+    public Product(Long id, String name, double weight) {
+        this.id = id;
         this.name = name;
         this.weight = weight;
     }
@@ -84,13 +92,14 @@ public class Product{
         return Objects.hash(name, weight, producer);
     }
 
+
     @Override
     public String toString() {
         return "Product{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", weight=" + weight +
                 ", producer=" + producer +
                 '}';
     }
-
 }

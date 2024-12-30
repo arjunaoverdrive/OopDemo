@@ -1,19 +1,24 @@
 package app.domain;
 
 import app.domain.Price;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.*;
 
 public class Shop {
-
-    private static long counter;
     private Long id;
     private String name;
     private String address;
+
+    @JsonIgnore
     private Set<Price> prices = new HashSet<>();
 
-    public Shop(String name, String address) {
-        this.id = ++counter;
+    public Shop() {}
+
+    public Shop(Long id, String name, String address) {
+        this.id = id;
         this.name = name;
         this.address = address;
     }
@@ -58,7 +63,8 @@ public class Shop {
     @Override
     public String toString() {
         return "Shop{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }

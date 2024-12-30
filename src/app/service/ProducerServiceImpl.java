@@ -3,8 +3,12 @@ package app.service;
 import app.domain.Producer;
 
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ProducerServiceImpl implements EntityService{
 
@@ -21,8 +25,18 @@ public class ProducerServiceImpl implements EntityService{
         return instance;
     }
 
+    private Long generateId() {
+        if (PRODUCERS.isEmpty()) {
+            return 1L;
+        }
+        long currentValue = PRODUCERS.keySet()
+                .stream()
+                .max(Long::compare)
+                .get();
+        return ++currentValue;
+    }
     public Producer create(String name) {
-        Producer producer = new Producer(name);
+        Producer producer = new Producer(generateId(), name);
         PRODUCERS.put(producer.getId(), producer);
         return producer;
     }
@@ -35,6 +49,15 @@ public class ProducerServiceImpl implements EntityService{
             );
         }
         return producer;
+    }
+
+    public List<Producer> getAll() {
+        return PRODUCERS.values().stream().toList();
+    }
+
+    public void addAll(Collection<Producer> producers) {
+        Map<Long, Producer> collect = producers.stream().collect(Collectors.toMap(Producer::getId, Function.identity()));
+        PRODUCERS.putAll(collect);
     }
 
     @Override

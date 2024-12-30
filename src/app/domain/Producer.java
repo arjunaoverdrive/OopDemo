@@ -1,15 +1,24 @@
 package app.domain;
 
-import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 public class Producer {
 
     private static long counter;
     private Long id;
     private String name;
+
+//    @JsonManagedReference(value = "producer")
     private Set<Product> products = new HashSet<>();
 
-    public Producer(String name) {
-        this.id = ++counter;
+    public Producer() {}
+
+    public Producer(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

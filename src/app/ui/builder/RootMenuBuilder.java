@@ -5,6 +5,8 @@ import app.ui.Builder;
 import app.ui.Menu;
 import app.ui.MenuItem;
 import app.ui.ItemName;
+import app.ui.actions.DeserializeAction;
+import app.ui.actions.SerializeAction;
 import app.ui.actions.entity.PriceAction;
 import app.ui.actions.entity.ProducerAction;
 import app.ui.actions.entity.ProductAction;
@@ -48,8 +50,10 @@ public class RootMenuBuilder extends Builder {
         MenuItem producer = createMenuItem(ItemName.PRODUCER, new ProducerAction());
         MenuItem shop = createMenuItem(ItemName.SHOP, new ShopAction());
         MenuItem price = createMenuItem(ItemName.PRICE, new PriceAction());
+        MenuItem serialize = new MenuItem(ItemName.SAVE, new SerializeAction(), MENU);
+        MenuItem deserialize = new MenuItem(ItemName.LOAD, new DeserializeAction(), MENU);
 
-        return List.of(producer, product, shop, price);
+        return List.of(producer, product, shop, price, serialize, deserialize);
     }
 
     private static Map<ItemName, Builder> initBuilders() {

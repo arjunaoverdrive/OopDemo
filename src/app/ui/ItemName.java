@@ -9,7 +9,9 @@ public enum ItemName {
     RETURN("Return"),
     GET_BY_ID("Get by id"),
     CREATE("Create"),
-    PRINT_ALL("Print all");
+    PRINT_ALL("Print all"),
+    LOAD ("Load"),
+    SAVE("Save");
 
     private final String name;
 
